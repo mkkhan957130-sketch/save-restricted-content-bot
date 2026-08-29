@@ -14,7 +14,7 @@ import os
 # Telegram Bot Credentials
 # ==============================
 
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "8968744783:AAFbbOhzYQYDRt2rTrCVAfkhoU_gV7GgkAE")
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 API_ID = int(os.environ.get("API_ID", "22518279"))
 API_HASH = os.environ.get("API_HASH", "61e5cc94bc5e6318643707054e54caf4")
 
