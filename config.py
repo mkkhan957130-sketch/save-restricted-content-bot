@@ -1,51 +1,52 @@
-"""
-Save Restricted Content Bot Configuration
-
-Developed by: LastPerson07Xcantarella
-Telegram: @cantarellabots X @THEUPDATEDGUYS
-
-Please retain this credit if you use or modify this project.
-"""
+"""Configuration loaded from environment variables."""
 
 import os
+import logging
+from typing import Optional
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Required
+BOT_TOKEN: str = os.getenv("BOT_TOKEN", "").strip()
+OWNER_ID: int = int(os.getenv("OWNER_ID", "0") or "0")
+
+# Database
+DATABASE_URL: str = os.getenv(
+    "DATABASE_URL", "sqlite+aiosqlite:///./bot.db"
+).strip()
+
+# Optional
+LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO").upper()
+DEFAULT_MATCH_MODE: str = os.getenv("DEFAULT_MATCH_MODE", "contains").lower()
+
+# Validate critical settings early
+def validate_config() -> None:
+    """Raise ValueError if critical config is missing."""
+    if not BOT_TOKEN:
+        raise ValueError(
+            "BOT_TOKEN is required. Set it in environment variables or .env file."
+        )
+    if OWNER_ID == 0:
+        raise ValueError(
+            "OWNER_ID is required. Set your Telegram numeric user ID "
+            "(get it from @userinfobot or by sending /myid to the bot)."
+        )
+    if DEFAULT_MATCH_MODE not in ("contains", "word"):
+        raise ValueError("DEFAULT_MATCH_MODE must be 'contains' or 'word'.")
 
 
-# ==============================
-# Telegram Bot Credentials
-# ==============================
-
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
-API_ID = int(os.environ.get("API_ID", "22518279"))
-API_HASH = os.environ.get("API_HASH", "61e5cc94bc5e6318643707054e54caf4")
-
-
-# ==============================
-# Admin Configuration
-# ==============================
-
-# Add admin user IDs separated by commas in environment variables
-ADMINS = [int(admin) for admin in os.environ.get("ADMINS", "8313091010").split(",") if admin]
-
-
-# ==============================
-# Database Configuration
-# ==============================
-
-DB_URI = os.environ.get("DB_URI", "mongodb+srv://devms786178_db_user:cEtMdLjmHF5EM2Pf@cluster0.xbqyvnn.mongodb.net/?appName=Cluster0")
-DB_NAME = os.environ.get("DB_NAME", "SaveRestricted2")
-
-
-# ==============================
-# Logging Configuration
-# ==============================
-
-# Replace with your Telegram log channel ID (example: -1001234567890)
-LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1003963609611"))
-
-
-# ==============================
-# Error Handling
-# ==============================
-
-# Set to True to send error messages to users
-ERROR_MESSAGE = os.environ.get("ERROR_MESSAGE", "True").lower() == "true"
+def setup_logging() -> None:
+    """Configure structured logging."""
+    level = getattr(logging, LOG_LEVEL, logging.INFO)
+    logging.basicConfig(
+        format="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        level=level,
+    )
+    # Reduce noise from libraries
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    logging.getLogger("httpcore").setLevel(logging.WARNING)
+    logging.getLogger("telegram").setLevel(logging.INFO)
+    logging.getLogger("apscheduler").setLevel(logging.WARNING)
