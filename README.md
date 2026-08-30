@@ -1,268 +1,224 @@
-# Telegram Keyword Replacer Bot
+# 🚀 Save Restricted Content Bot (Advanced)
 
-A production-ready Telegram bot that **automatically finds and replaces configured keywords** in messages posted in groups and channels where the bot is an administrator.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10+-blue?logo=python&style=for-the-badge">
+  <img src="https://img.shields.io/badge/Library-Pyrogram-yellow?logo=telegram&style=for-the-badge">
+  <img src="https://img.shields.io/badge/Database-MongoDB-green?logo=mongodb&style=for-the-badge">
+  <img src="https://img.shields.io/badge/Status-Stable-success?style=for-the-badge">
+</p>
 
-It edits messages **in place** (using `editMessageText` / `editMessageCaption`). It never deletes, re-uploads, or creates duplicate messages.
+<p align="center">
+<b>A cleaner and improved version of the Save Restricted Content Bot with a better structure, smoother workflow, and practical features for real usage.</b>
+</p>
 
-> **Important Telegram limitation**  
-> PDF/document **filenames** of already-uploaded files are intentionally **not** modified because the Telegram Bot API does not provide normal direct editing for this field. Only the **caption** of documents is edited when it contains a matching keyword.
-
----
-
-## Features
-
-- ✅ Automatic in-place keyword replacement in **text** and **media captions**
-- ✅ Unlimited replacement rules per chat
-- ✅ Independent settings per group / channel
-- ✅ Case-insensitive (default) or case-sensitive matching
-- ✅ `contains` or whole-`word` match modes
-- ✅ Owner + authorized-admin only configuration
-- ✅ Clean command interface + optional inline admin panel
-- ✅ Handles new messages **and** edited messages
-- ✅ Robust error handling (flood control, permissions, network…)
-- ✅ SQLite by default (Render free-tier friendly) + PostgreSQL compatible
-- ✅ Ready for GitHub + Render free worker deployment (long polling)
+<p align="center">
+  <a href="https://github.com/abhinai2244/SAVE-RESTRICT-BOT">
+    <img src="https://img.shields.io/badge/View-Original%20Repository-black?style=for-the-badge&logo=github">
+  </a>
+</p>
 
 ---
 
-## Supported content types
+## 🔗 Quick Links
 
-The bot processes any field that the Telegram Bot API allows bots to edit:
-
-| Type              | Field processed |
-|-------------------|-----------------|
-| Normal text       | `message.text`  |
-| Photo / Video / Document / Audio / Animation / Voice | `message.caption` |
-
-**Not supported (by Telegram design):**
-- Changing the actual filename of an already-uploaded document/PDF
-- Editing messages the bot does not have permission to edit
+<p align="center">
+  <a href="#-features"><img src="https://img.shields.io/badge/Features-View-blue?style=for-the-badge"></a>
+  <a href="#-deployment"><img src="https://img.shields.io/badge/Deployment-Setup-green?style=for-the-badge"></a>
+  <a href="#-commands"><img src="https://img.shields.io/badge/Commands-List-orange?style=for-the-badge"></a>
+  <a href="#-support"><img src="https://img.shields.io/badge/Support-Telegram-blue?style=for-the-badge&logo=telegram"></a>
+</p>
 
 ---
 
-## Required bot permissions
+# 🚀 Features
 
-Add the bot as an **administrator** in the target group or channel and grant at least:
+<details open>
+<summary><b>📦 Core Features</b></summary>
 
-- **Edit messages** ← required for keyword replacement
-- Presence / ability to see messages
+- **Save Restricted Content** — Download text, media, and files from restricted channels.
+- **Batch Mode** — Bulk download messages from public or private channels with auto-detection.
+- **User Login** — Login using `/login` to enable downloading capabilities.
 
-Optional (not required for core functionality):
-- Delete messages
+### ⚙️ Customization
 
-Without **Edit messages** the bot cannot replace keywords.
+- Set custom captions (`/set_caption`)
+- Set custom thumbnails (`/set_thumb`)
+- Auto-delete or replace specific words
 
----
+### 💎 Premium System
 
-## How to create a Telegram bot
+- Built-in system for free and premium users
+- Admin-controlled premium access
 
-1. Open Telegram and talk to [@BotFather](https://t.me/BotFather)
-2. Send `/newbot` and follow the instructions
-3. Copy the **bot token** (looks like `1234567890:ABCdef...`)
-4. (Recommended) Disable privacy mode if you want the bot to see all messages in groups:
-   - `/setprivacy` → select your bot → **Disable**
+### 👑 Admin Tools
 
----
+- Broadcast messages
+- Ban / Unban users
+- Manage premium status
 
-## How to obtain your OWNER_ID
+### 🧠 Persistent Storage
 
-1. Talk to [@userinfobot](https://t.me/userinfobot) or [@getidsbot](https://t.me/getidsbot)
-2. Or add this bot to a chat and send `/myid`
-3. Copy the numeric ID (e.g. `123456789`)
+- MongoDB-based user data and settings
 
----
+### ☁️ Keep Alive
 
-## Environment variables
+- Supports uptime services for Render / Heroku deployments
 
-| Variable       | Required | Description                                      | Example                                      |
-|----------------|----------|--------------------------------------------------|----------------------------------------------|
-| `BOT_TOKEN`    | Yes      | Token from @BotFather                            | `123456:ABC...`                              |
-| `OWNER_ID`     | Yes      | Your numeric Telegram user ID                    | `123456789`                                  |
-| `DATABASE_URL` | No       | SQLAlchemy async URL (default = SQLite)          | `sqlite+aiosqlite:///./bot.db`               |
-| `LOG_LEVEL`    | No       | `DEBUG`, `INFO`, `WARNING`, `ERROR`              | `INFO`                                       |
-
-For PostgreSQL later:
-
-```
-DATABASE_URL=postgresql+psycopg2://user:pass@host:5432/dbname
-```
+</details>
 
 ---
 
-## Local installation & run
+# 🛠 Deployment
+
+## ✅ Prerequisites
+
+- Python **3.10+**
+- MongoDB Database
+- Telegram API ID & Hash
+- Bot Token
+
+---
+
+## ⚙️ Environment Variables
+
+<details>
+<summary><b>Click to Expand</b></summary>
+
+| Variable        | Description                                |
+| --------------- | ------------------------------------------ |
+| `BOT_TOKEN`     | Telegram Bot Token from BotFather          |
+| `API_ID`        | Telegram API ID                            |
+| `API_HASH`      | Telegram API Hash                          |
+| `ADMINS`        | Comma-separated Admin User IDs             |
+| `DB_URI`        | MongoDB Connection String                  |
+| `DB_NAME`       | Database Name (default: `SaveRestricted2`) |
+| `LOG_CHANNEL`   | Channel ID for logging users and errors    |
+| `ERROR_MESSAGE` | Send error messages to users               |
+| `KEEP_ALIVE`    | Use an uptime service like UptimeRobot     |
+
+</details>
+
+---
+
+## 💻 Local Setup
+
+<details open>
+<summary><b>Installation Steps</b></summary>
+
+### Clone the repository
 
 ```bash
-# 1. Clone / download
-git clone <your-repo-url>
-cd telegram-keyword-replacer
-
-# 2. Create virtualenv (recommended)
-python -m venv venv
-source venv/bin/activate          # Windows: venv\Scripts\activate
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Configure
-cp .env.example .env
-# Edit .env and put your BOT_TOKEN and OWNER_ID
-
-# 5. Run
-python -m bot.main
+git clone https://github.com/abhinai2244/SAVE-RESTRICT-BOT.git
+cd SAVE-RESTRICT-BOT
 ```
 
-The bot will create the SQLite database automatically on first start.
-
----
-
-## Commands
-
-| Command                        | Description                              | Who can use          |
-|--------------------------------|------------------------------------------|----------------------|
-| `/start`                       | Welcome message                          | Everyone             |
-| `/help`                        | Full help                                | Everyone             |
-| `/myid`                        | Show your Telegram user ID               | Everyone             |
-| `/chatid`                      | Show current chat ID                     | Everyone             |
-| `/permissions`                 | Required bot admin permissions           | Everyone             |
-| `/status`                      | Current bot status for this chat         | Authorized           |
-| `/addkeyword OLD \| NEW`       | Add / update a replacement rule          | Owner / authorized   |
-| `/deletekeyword OLD`           | Remove a rule                            | Owner / authorized   |
-| `/listkeywords`                | List all rules                           | Owner / authorized   |
-| `/clearkeywords`               | Delete all rules in this chat            | Owner / authorized   |
-| `/enable`                      | Enable automatic replacement             | Owner / authorized   |
-| `/disable`                     | Disable automatic replacement            | Owner / authorized   |
-| `/casesensitive on\|off`       | Toggle case sensitivity                  | Owner / authorized   |
-| `/matchmode contains\|word`    | Matching mode                            | Owner / authorized   |
-| `/panel`                       | Open simple admin panel                  | Owner / authorized   |
-
-**Example**
-
-```
-/addkeyword OLDNAME | @NewChannel
-```
-
-After this, any new message containing `OLDNAME` (any case) will be automatically edited to contain `@NewChannel` instead.
-
----
-
-## Render FREE Web Service deployment
-
-Render free tier only offers **Web Service** (Background Worker is paid).
-
-This bot is already configured for it:
-- A tiny HTTP health-check server listens on `$PORT`
-- The Telegram bot runs with **long polling** in the same process
-
-### Steps
-
-1. Push the repository to GitHub.
-2. Go to [Render Dashboard](https://dashboard.render.com) → **New** → **Web Service**.
-3. Connect your GitHub repository.
-4. Settings:
-   - **Name**: `telegram-keyword-replacer` (or any name)
-   - **Runtime**: Python 3
-   - **Instance Type**: Free
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `python -m bot.main`
-5. Add Environment Variables:
-   - `BOT_TOKEN` = your bot token
-   - `OWNER_ID` = your numeric user ID
-   - `DATABASE_URL` = `sqlite+aiosqlite:///./bot.db` (optional)
-   - `LOG_LEVEL` = `INFO`
-6. Create the Web Service.
-
-### Important notes about free Web Service
-
-- Render free web services **spin down after ~15 minutes of no HTTP traffic**.
-- When someone visits the service URL (or health-check hits), it wakes up again.
-- The bot will also wake up and resume polling.
-- For personal / low-traffic groups this is usually fine.
-- For always-on behaviour you need a paid plan or an external cron that pings your Render URL every 10–14 minutes.
-
-You can also use the included `render.yaml` Blueprint.
-
----
-
-## Database
-
-- Default: **SQLite** (file `bot.db`) – perfect for free tier
-- Tables are created automatically on first start
-- Designed with SQLAlchemy so you can later switch to PostgreSQL by changing `DATABASE_URL`
-
----
-
-## How it works (high level)
-
-1. You add the bot as admin to a group/channel and give it **Edit messages** permission.
-2. Owner runs `/addkeyword OLD | NEW` inside that chat.
-3. Whenever a new message (or an edited message) arrives that contains a matching keyword, the bot calls:
-   - `editMessageText` for pure text messages
-   - `editMessageCaption` for media captions
-4. The original message stays in place – only the text/caption is changed.
-
----
-
-## Troubleshooting
-
-| Problem                              | Solution                                                                 |
-|--------------------------------------|--------------------------------------------------------------------------|
-| Bot does not react to messages       | Disable privacy mode in BotFather (`/setprivacy` → Disable)              |
-| “Message can’t be edited”            | Give the bot **Edit messages** admin right                               |
-| Commands ignored                     | Only `OWNER_ID` (and authorized admins) can configure                    |
-| Bot sleeps on Render free            | Normal behaviour; it wakes on activity. Upgrade for always-on            |
-| Database errors                      | Check `DATABASE_URL`. For SQLite ensure the process has write permission |
-
----
-
-## Security notes
-
-- Never commit your real `.env` file or bot token to GitHub.
-- Keep `OWNER_ID` secret – only that user (and explicitly authorized admins) can change rules.
-- The bot never logs message content at INFO level.
-
----
-
-## Development & tests
+### Install dependencies
 
 ```bash
 pip install -r requirements.txt
-pytest tests/ -v
+```
+
+### Run the bot
+
+```bash
+python bot.py
+```
+
+</details>
+
+---
+
+## 🐳 Docker
+
+```bash
+docker build -t save-restricted-bot .
+docker run -d --env-file .env save-restricted-bot
 ```
 
 ---
 
-## Project structure
+# 📝 Commands
 
-```
-telegram-keyword-replacer/
-├── bot/
-│   ├── __init__.py
-│   ├── main.py          # Entry point
-│   ├── config.py
-│   ├── database.py
-│   ├── handlers.py
-│   ├── replacer.py
-│   ├── permissions.py
-│   ├── keyboards.py
-│   └── utils.py
-├── tests/
-│   └── test_replacer.py
-├── requirements.txt
-├── render.yaml
-├── Procfile
-├── .env.example
-├── .gitignore
-├── README.md
-└── LICENSE
-```
+## 👤 User Commands
+
+<details>
+<summary><b>Click to Expand</b></summary>
+
+| Command     | Action                   |
+| ----------- | ------------------------ |
+| `/start`    | Start the bot            |
+| `/help`     | Get help information     |
+| `/login`    | Login to your account    |
+| `/logout`   | Logout from your account |
+| `/cancel`   | Cancel batch process     |
+| `/settings` | Open settings menu       |
+| `/myplan`   | Check your current plan  |
+| `/premium`  | View premium details     |
+
+### ⚙️ Customization
+
+- `/set_caption`
+- `/see_caption`
+- `/del_caption`
+- `/set_thumb`
+- `/view_thumb`
+- `/del_thumb`
+- `/thumb_mode`
+- `/set_del_word`
+- `/rem_del_word`
+- `/set_repl_word`
+- `/rem_repl_word`
+- `/setchat`
+
+</details>
 
 ---
 
-## License
+## 👑 Admin Commands
 
-MIT License – see [LICENSE](LICENSE).
+<details>
+<summary><b>Click to Expand</b></summary>
+
+- `/broadcast`
+- `/ban` / `/unban`
+- `/add_premium` / `/remove_premium`
+- `/users`
+- `/premium_users`
+- `/set_dump`
+- `/dblink`
+
+</details>
 
 ---
 
-**Happy keyword replacing!**  
-If you find a bug or want a feature, open an issue on GitHub.
+# 🤝 Contributors
+
+<p align="center">
+  <a href="https://t.me/cantarella_wuwa">
+    <img src="https://img.shields.io/badge/Abhi-Telegram-blue?style=for-the-badge&logo=telegram">
+  </a>
+  &nbsp;
+  <a href="https://github.com/LastPerson07/">
+    <img src="https://img.shields.io/badge/LastPerson07-GitHub-black?style=for-the-badge&logo=github">
+  </a>
+</p>
+
+---
+
+# 📞 Support
+
+<p align="center">
+  <a href="https://t.me/cantarellabots">
+    <img src="https://img.shields.io/badge/cantarella-Official%20Channel-blue?style=for-the-badge&logo=telegram">
+  </a>
+  <br><br>
+  <a href="https://t.me/THEUPDATEDGUYS">
+    <img src="https://img.shields.io/badge/Updates-Channel-blue?style=for-the-badge&logo=telegram">
+  </a>
+</p>
+
+---
+
+<p align="center">
+⭐ If this project helped you, consider starring the repository!
+</p>
