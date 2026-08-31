@@ -15,7 +15,7 @@ import os
 # ==============================
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
-API_ID = int(os.environ.get("API_ID", "8313091010,8909902924,6964368738"))
+API_ID = int(os.environ.get("API_ID", "22518279"))
 API_HASH = os.environ.get("API_HASH", "c9696114751feacdeb1b4487f5839a1a")
 
 
@@ -24,7 +24,7 @@ API_HASH = os.environ.get("API_HASH", "c9696114751feacdeb1b4487f5839a1a")
 # ==============================
 
 # Add admin user IDs separated by commas in environment variables
-ADMINS = [int(admin) for admin in os.environ.get("ADMINS", "8909902924").split(",") if admin]
+ADMINS = [int(admin) for admin in os.environ.get("ADMINS", "8313091010,6964368738,8909902924").split(",") if admin]
 
 
 # ==============================
