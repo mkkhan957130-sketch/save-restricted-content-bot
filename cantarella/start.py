@@ -79,8 +79,8 @@ class script(object):
 """
     ABOUT_TXT = """<b>ℹ️ About This Bot</b>
 <blockquote><b>╭────[ 🧩 Technical Stack ]────⍟</b>
-<b>├⍟ 🤖 Bot Name : <a href=http://t.me/THEUPDATEDGUYS_Bot>Save Content</a></b>
-<b>├⍟ 👨‍💻 Developer : <a href=https://t.me/DmOwner>Ⓜ️ark X cantarella</a></b>
+<b>├⍟ 🤖 Bot Name : <a href=http://t.me/Mk_khan786_bot>Save Content</a></b>
+<b>├⍟ 👨‍💻 Developer : <a href=https://t.me/Mk_khan001> 𓆩⃟≛⃝ᴍᴋ‌ ᴋʜᴀɴ⛦⃕‌𓆪⃟࿐</a></b>
 <b>├⍟ 📚 Library : <a href='https://docs.pyrogram.org/'>Pyrogram Async</a></b>
 <b>├⍟ 🐍 Language : <a href='https://www.python.org/'>Python 3.11+</a></b>
 <b>├⍟ 🗄 Database : <a href='https://www.mongodb.com/'>MongoDB Atlas Cluster</a></b>
@@ -100,10 +100,9 @@ class script(object):
 • <b>1 Month Plan:</b> ₹50 / $1 (Billed Monthly)
 • <b>3 Month Plan:</b> ₹120 / $2.5 (Save 20%)
 • <b>Lifetime Access:</b> ₹200 / $4 (One-Time Payment)
-<blockquote><b>👇 Secure Payment:</b></blockquote>
-<b>💸 UPI ID:</b> <code>{}</code>
-<b>📸 QR Code:</b> <a href='{}'>Scan to Pay</a>
-<i>After Payment: Send Screenshot to Admin for Instant Activation.</i>
+<blockquote><b>📩 Get Premium Access:</b></blockquote>
+<b>👨‍💻 Contact Admin:</b> <a href="https://t.me/Mk_khan001">𓆩⃟≛⃝ᴍᴋ‌ ᴋʜᴀɴ⛦⃕‌𓆪⃟࿐</a>
+<i>Click the Admin link above to contact us for payment and Premium activation.</i>
 """
     PROGRESS_BAR = """\
 <b>⚡ Processing Task...</b>
@@ -115,7 +114,7 @@ class script(object):
 <b>⏳ ETA:</b> <code>{eta}</code>
 </blockquote>
 """
-    CAPTION = """<b><a href="https://t.me/THEUPDATEDGUYS"></a></b>\n\n<b>⚜️ Powered By : <a href="https://t.me/THEUPDATEDGUYS">THE UPDATED GUYS 😎</a></b>"""
+    CAPTION = """<b><a href="https://t.me/Mk_khan786_bot"></a></b>\n\n<b>⚜️ Powered By : <a href="https://t.me/@Mk_khan786_bot">THE UPDATED GUYS 😎</a></b>"""
     LIMIT_REACHED = """<b>🚫 Daily Limit Exceeded</b>
 <b>Your 10 free saves for today have been used.</b>
 <i>Quota resets automatically after 24 hours from first download.</i>
@@ -276,7 +275,7 @@ async def send_help(client: Client, message: Message):
 @Client.on_message(filters.command(["plan", "myplan", "premium"]))
 async def send_plan(client: Client, message: Message):
     buttons = [
-        [InlineKeyboardButton("📸 Send Payment Proof", url="https://t.me/DmOwner")],
+        [InlineKeyboardButton("📸 Send Payment Proof", url="https://t.me/Mk_khan001")],
         [InlineKeyboardButton("❌ Close Menu", callback_data="close_btn")]
     ]
     await client.send_photo(
@@ -508,7 +507,7 @@ async def button_callbacks(client: Client, callback_query: CallbackQuery):
         await settings_panel(client, callback_query)
     elif data == "buy_premium":
         buttons = [
-            [InlineKeyboardButton("📸 Send Payment Proof", url="https://t.me/DmOwner")],
+            [InlineKeyboardButton("📸 Send Payment Proof", url="https://t.me/Mk_khan001")],
             [InlineKeyboardButton("⬅️ Back to Home", callback_data="start_btn")]
         ]
         await client.edit_message_media(
